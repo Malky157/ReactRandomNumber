@@ -23,21 +23,21 @@ class RandomNumberTable extends React.Component {
     onSelectClick = (n) => {
         const { selectedNumbers } = this.state
         if (selectedNumbers.includes(n.id)) {
-            this.setState({ SelectedNumbers: selectedNumbers.filter(i => i !== n.id) })
+            this.setState({ selectedNumbers: selectedNumbers.filter(i => i !== n.id) })
         }
         else {
             this.setState({
-                selectedNumbers: [...selectedNumbers, n]
+                selectedNumbers: [...selectedNumbers, n.id]
             })
         }
     }
     onLockClick = (n) => {
         const { lockedNumbers } = this.state
         if (lockedNumbers.includes(n.id)) {
-            this.setState({ lockedNumbers: lockedNumbers.filter(i => i !== n.id) })
+            this.setState({ lockedNumbers: lockedNumbers.filter(i => i.id !== n.id) })
         }
         else {
-            this.setState({ lockedNumbers: [...lockedNumbers, n] })
+            this.setState({ lockedNumbers: [...lockedNumbers, {n.id, n.number}] })
         }
     }
     getRandomNumber = (min, max) => {
@@ -45,6 +45,7 @@ class RandomNumberTable extends React.Component {
     }
     render() {
         const { numbers, selectedNumbers, lockedNumbers } = this.state
+        // console.log(numbers, selectedNumbers)
         return <>
             <div className="container" style={{ marginTop: 60 }}>
                 <div className="row">
@@ -62,7 +63,7 @@ class RandomNumberTable extends React.Component {
                         </thead>
                         <tbody>
                             {numbers.map((n) => <RandomNumberRow
-                                key={n.id} number={n}
+                                key={n.id} number={n.number}
                                 isSelected={selectedNumbers.includes(n.id)}
                                 onSelectClick={() => this.onSelectClick(n)}
                                 isLocked={lockedNumbers.includes(n.id)}
@@ -77,7 +78,7 @@ class RandomNumberTable extends React.Component {
                         <h3>Selected Numbers</h3>
                         <ul className="list-group">
                             {selectedNumbers.map((n) => <SelectedNumbers
-                                key={n.id} number={n}
+                                key={n.id} number={n.number}
                                 isLocked={lockedNumbers.includes(n.id)}
                                 onLockClick={() => this.onLockClick(n)}
                             />)}

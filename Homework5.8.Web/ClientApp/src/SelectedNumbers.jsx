@@ -2,10 +2,11 @@ import React from "react";
 
 class SelectedNumbers extends React.Component {
     onLockClick = () => {
-        this.props.onLockClick(this.props.number)
+        this.props.onLockClick()
     }
-    render() {
+    render() {       
         const { number, isLocked } = this.props
+        console.log(`isLocked: ${isLocked}, ${number}`)
         return <>
             <li className="list-group-item">
                 {number}

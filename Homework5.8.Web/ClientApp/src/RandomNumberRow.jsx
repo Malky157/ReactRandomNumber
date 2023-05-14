@@ -3,12 +3,12 @@ import React from "react";
 class RandomNumberRow extends React.Component {
 
     onSelectClick = () => {
-       this.props.onSelectClick(this.props.number)
+       this.props.onSelectClick()
     }
 
     render() {
-        const { number } = this.props.number
-        const { isSelected, isLocked } = this.props
+        const { number ,isSelected, isLocked } = this.props
+        console.log(`isLocked: ${isLocked}`)
         return <>
             <tr>
                 <th>{number}</th>
